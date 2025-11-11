@@ -18,10 +18,7 @@ use Illuminate\Auth\Events\Registered;
 class AuthController extends Controller
 {
     // Show login form
-    public function showLogin()
-    {
-        return view('auth.login');
-    }
+
 
     // Handle login
     public function login(Request $request)
@@ -63,11 +60,6 @@ class AuthController extends Controller
         ])->withInput($request->only('email'));
     }
 
-    // Show register form
-    public function showRegister()
-    {
-        return view('auth.register');
-    }
 
     // Handle registration
     public function register(Request $request)

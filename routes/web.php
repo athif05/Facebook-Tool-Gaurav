@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
@@ -10,15 +9,17 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\AdSetController;
 use App\Http\Controllers\AdLauncherController;
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
 // Guest routes (not logged in)
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [Auth\RegisteredUserController::class, 'showLogin'])->name('login');
-    Route::post('/login', [Auth\RegisteredUserController::class, 'login']);
+/* Route::middleware('guest')->group(function () {
+    Route::get('/login', [Auth\ConfirmablePasswordController::class, 'showLogin'])->name('login');
+    Route::post('/login', [Auth\ConfirmablePasswordController::class, 'login']);
 
     Route::get('/register', [Auth\RegisteredUserController::class, 'showRegister'])->name('register');
     Route::post('/register', [Auth\RegisteredUserController::class, 'register']);
@@ -43,7 +44,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/resend-verification', [Auth\RegisteredUserController::class, 'resendVerificationEmail'])
     ->middleware(['guest', 'throttle:3,1'])
     ->name('verification.resend');
-});
+}); */
 
 /* Route::get('/dashboard', function () {
     return view('dashboard');
