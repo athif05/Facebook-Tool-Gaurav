@@ -67,7 +67,7 @@
                             <p style="font-size: 0.875rem; color: #6b7280; margin: 0.25rem 0 0 0;">{{ Auth::user()?->email }}</p>
                         </div>
                         <div style="padding: 0.5rem 0;">
-                            <a href="#" style="display: block; padding: 0.5rem 0.75rem; color: #374151; text-decoration: none; border-radius: 0.375rem; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
+                            <a href="{{ route('profile.show') }}" style="display: block; padding: 0.5rem 0.75rem; color: #374151; text-decoration: none; border-radius: 0.375rem; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#f3f4f6'" onmouseout="this.style.backgroundColor='transparent'">
                                 Profile Settings
                             </a>
                             <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
