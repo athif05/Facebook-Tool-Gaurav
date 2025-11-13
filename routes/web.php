@@ -8,6 +8,7 @@ use App\Http\Controllers\AdsController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\AdSetController;
 use App\Http\Controllers\AdLauncherController;
+use App\Http\Controllers\SettingsController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -72,7 +73,12 @@ Route::middleware('auth')->group(function () {
     
     // AdSets
     Route::resource('adsets', AdSetController::class);
-    // ... other routes
+    
+    // Settings Routes (Auth Required)
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/connections', [SettingsController::class, 'connections'])->name('connections');
+        Route::get('/ad-accounts', [SettingsController::class, 'adAccounts'])->name('ad-accounts');
+    });
 });
 
 //Testing purpose

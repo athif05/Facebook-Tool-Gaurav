@@ -1,0 +1,172 @@
+/* Settings Page Styles */
+
+/* Sub Header Tabs */
+.settings-subheader {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+}
+
+.settings-tabs {
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    list-style: none;
+    margin: 0;
+}
+
+.settings-tabs li {
+    margin: 0;
+}
+
+.settings-tabs a {
+    display: block;
+    padding: 1rem 0;
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.settings-tabs a:hover {
+    color: #1f2937;
+}
+
+.settings-tabs a.active {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+/* Settings Content */
+.settings-content {
+    padding: 0 2rem 2rem;
+}
+
+.settings-title {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 2rem;
+}
+
+/* Connection Cards Grid */
+.connections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.connection-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.connection-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-color: #d1d5db;
+}
+
+.connection-card.add-new {
+    border: 2px dashed #d1d5db;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.connection-card.add-new:hover {
+    border-color: #2563eb;
+    background-color: #f9fafb;
+}
+
+.connection-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+}
+
+.connection-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.connection-details {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.add-icon {
+    width: 60px;
+    height: 60px;
+    background: #e5e7eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #6b7280;
+}
+
+.add-text {
+    font-size: 1rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Search Box */
+.search-box {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: white;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-btn {
+    padding: 0.75rem 1rem;
+    background-color: #374151;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+    background-color: #1f2937;
+}
+
+.search-btn svg {
+    width: 20px;
+    height: 20px;
+}
