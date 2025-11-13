@@ -53,8 +53,8 @@
 /* Connection Cards Grid */
 .connections-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem; /* Reduced from 1.5rem */
     margin-top: 2rem;
 }
 
@@ -62,7 +62,7 @@
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
-    padding: 2rem;
+    padding: 1.5rem; /* Reduced from 2rem */
     text-align: center;
     transition: all 0.2s;
     cursor: pointer;
@@ -79,7 +79,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 200px;
+    min-height: 160px; /* Reduced from 200px */
 }
 
 .connection-card.add-new:hover {
@@ -91,36 +91,40 @@
     width: 80px;
     height: 80px;
     margin: 0 auto 1rem;
+}.connection-logo {
+    width: 60px; /* Reduced from 80px */
+    height: 60px; /* Reduced from 80px */
+    margin: 0 auto 1rem;
 }
 
 .connection-name {
-    font-size: 1.125rem;
+    font-size: 0.9rem; /* Reduced from 1.125rem */
     font-weight: 600;
     color: #1f2937;
     margin-bottom: 0.5rem;
 }
 
 .connection-details {
-    font-size: 0.875rem;
+    font-size: 0.8rem; /* Reduced from 0.875rem */
     color: #6b7280;
     margin-bottom: 0.25rem;
 }
 
 .add-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px; /* Reduced from 60px */
+    height: 50px; /* Reduced from 60px */
     background: #e5e7eb;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    font-size: 2rem;
+    font-size: 1.75rem; /* Reduced from 2rem */
     color: #6b7280;
 }
 
 .add-text {
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduced from 1rem */
     color: #6b7280;
     font-weight: 500;
 }
@@ -169,4 +173,24 @@
 .search-btn svg {
     width: 20px;
     height: 20px;
+}
+
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .connections-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .connections-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .connections-grid {
+        grid-template-columns: 1fr;
+    }
 }
