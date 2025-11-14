@@ -65,16 +65,16 @@
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
         </svg>
     </div>
-    <!-- <div class="alert-text">
+    <div class="alert-text">
         <p>{{ $errors->first('email') }}</p>
-        <form method="POST" action="{{ route('verification.resend') }}" style="margin-top: 0.5rem;">
+        <form method="POST" action="{{ route('verification.send') }}" style="margin-top: 0.5rem;">
             @csrf
             <input type="hidden" name="email" value="{{ old('email') }}">
             <button type="submit" style="color: #3b82f6; text-decoration: underline; background: none; border: none; cursor: pointer; padding: 0; font-size: 0.875rem;">
                 Resend verification email
             </button>
         </form>
-    </div> -->
+    </div>
 </div>
 @endif
 @endsection
