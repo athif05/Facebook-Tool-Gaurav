@@ -10,6 +10,8 @@ use App\Http\Controllers\AdSetController;
 use App\Http\Controllers\AdLauncherController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -92,6 +94,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/facebook/disconnect/{id}', [FacebookController::class, 'disconnectAccount'])->name('facebook.disconnect');
 
 });
+
+
+Route::get('/privacy-policy', [PrivacyController::class, 'show'])->name('privacy.policy');
+Route::get('/terms', [TermController::class, 'show'])->name('terms');
 
 //Testing purpose
 Route::get('/debug-fb-config', function () {
