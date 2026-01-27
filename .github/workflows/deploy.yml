@@ -8,43 +8,37 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-      
+
+      - name: Test SSH Connection
+        run: |
+          ssh -o StrictHostKeyChecking=yes ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "echo SSH CONNECTED"
+
       - name: Deploy to Server
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            cd /var/www/html
-            
-            # Backup .env file
+            cd /var/www/html || exit 1
+
             cp .env .env.backup
-            
-            # Pull latest changes
+
             git pull origin main
-            
-            # Restore .env file
+
             mv .env.backup .env
-            
-            # Set proper permissions
-            # Run only if needed (comment out if not needed)
-            #sudo chown -R www-data:www-data /var/www/html
-            #sudo chmod -R 755 /var/www/html
-            #sudo chmod -R 775 /var/www/html/storage
-            #sudo chmod -R 775 /var/www/html/bootstrap/cache
-            
-            # Clear Laravel cache
+
             php artisan config:clear
             php artisan cache:clear
             php artisan view:clear
-            
+
             echo "Deployment completed successfully!"
           EOF
