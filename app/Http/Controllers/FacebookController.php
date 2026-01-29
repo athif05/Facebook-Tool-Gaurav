@@ -39,14 +39,14 @@ class FacebookController extends Controller
         
         // Use specific API version
         $url = 'https://www.facebook.com/v3.2/dialog/oauth?' . http_build_query($params);
-        
+        //dd($url);
         return redirect($url);
     }
 
     /**
      * Handle Facebook Callback - Jab user "Continue as Athif" ya "Log in to another account" click kare
      */
-    public function handleCallback(Request $request)
+    /* public function handleCallback(Request $request)
     {
         // Log everything for debugging
         Log::info('=== FACEBOOK CALLBACK STARTED ===');
@@ -63,6 +63,7 @@ class FacebookController extends Controller
             
             // Get authorization code
             $code = $request->get('code');
+            
             if (!$code) {
                 Log::error('No authorization code received');
                 return redirect('/dashboard')->with('error', 'No authorization code received from Facebook');
@@ -241,7 +242,17 @@ class FacebookController extends Controller
             
             return redirect('/dashboard')->with('error', 'An error occurred: ' . $e->getMessage());
         }
+    }  */
+
+     public function handleCallback(Request $request)
+    { 
+        return response()->json([
+            'request_data' => $request->all(),
+            'query_string' => $request->getQueryString(),
+        ]);
     }
+
+
     /* public function handleCallback(Request $request)
     {
         $code = $request->get('code');

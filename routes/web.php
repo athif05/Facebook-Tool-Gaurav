@@ -10,6 +10,9 @@ use App\Http\Controllers\AdSetController;
 use App\Http\Controllers\AdLauncherController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FacebookController;
+use App\Http\Controllers\PrivacyController;
+use App\Http\Controllers\TermController;
+use App\Http\Controllers\DatadeletionController;
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -87,11 +90,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/oauth/facebook', [FacebookController::class, 'handleCallback'])->name('oauth.facebook');
     Route::get('/facebook/redirect', [FacebookController::class, 'redirectToFacebook'])->name('facebook.redirect');
-    Route::get('/oauth/facebook', [FacebookController::class, 'handleCallback'])->name('facebook.callback');
+    //Route::get('/oauth/facebook', [FacebookController::class, 'handleCallback'])->name('facebook.callback');
     Route::get('/facebook/accounts', [FacebookController::class, 'listAccounts'])->name('facebook.accounts');
     Route::post('/facebook/disconnect/{id}', [FacebookController::class, 'disconnectAccount'])->name('facebook.disconnect');
 
 });
+
+Route::get('/privacy-policy', [PrivacyController::class, 'show'])->name('privacy.policy');
+Route::get('/terms', [TermController::class, 'show'])->name('terms');
+Route::get('/data-deletion', [DatadeletionController::class, 'show'])->name('data-deletion');
 
 //Testing purpose
 Route::get('/debug-fb-config', function () {
