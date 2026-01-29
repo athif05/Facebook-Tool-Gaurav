@@ -5,40 +5,50 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Setup SSH
         run: |
-          mkdir -p "$RUNNER_TEMP/ssh"
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$RUNNER_TEMP/ssh/id_rsa"
-          chmod 600 "$RUNNER_TEMP/ssh/id_rsa"
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> "$RUNNER_TEMP/ssh/known_hosts"
-
-      - name: Test SSH
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      
+      - name: Deploy to Server
         run: |
-          ssh -i "$RUNNER_TEMP/ssh/id_rsa" \
-          -o UserKnownHostsFile="$RUNNER_TEMP/ssh/known_hosts" \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} \
-          "echo CONNECTED"
-
-      - name: Deploy
-        run: |
-          ssh -i "$RUNNER_TEMP/ssh/id_rsa" \
-          -o UserKnownHostsFile="$RUNNER_TEMP/ssh/known_hosts" \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} \
-          "cd /var/www/html && \
-           cp .env .env.backup && \
-           git pull origin main && \
-           mv .env.backup .env && \
-           php artisan config:clear && \
-           php artisan cache:clear && \
-           php artisan view:clear && \
-           echo DEPLOYED"
+          ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            cd /var/www/html
+            
+            # Backup .env file
+            cp .env .env.backup
+            
+            # Pull latest changes
+            git pull origin main
+            
+            # Restore .env file
+            mv .env.backup .env
+            
+            # Set proper permissions
+            sudo chown -R www-data:www-data /var/www/html
+            sudo chmod -R 755 /var/www/html
+            sudo chmod -R 775 /var/www/html/storage
+            sudo chmod -R 775 /var/www/html/bootstrap/cache
+            # Run only if needed (comment out if not needed)
+            #sudo chown -R www-data:www-data /var/www/html
+            #sudo chmod -R 755 /var/www/html
+            #sudo chmod -R 775 /var/www/html/storage
+            #sudo chmod -R 775 /var/www/html/bootstrap/cache
+            
+            # Clear Laravel cache
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan view:clear
+            
+            echo "Deployment completed successfully!"
+          EOF
