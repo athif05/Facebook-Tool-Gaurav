@@ -28,7 +28,7 @@ class FacebookController extends Controller
         Session::put('facebook_oauth_state', $state);
         session(['facebook_oauth_state' => $state]);
         
-        $params = [
+        /* $params = [
             'access_type' => 'offline',
             'client_id' => config('services.facebook.client_id'),
             'redirect_uri' => config('services.facebook.redirect'),
@@ -38,7 +38,21 @@ class FacebookController extends Controller
         ];
         
         // Use specific API version
-        $url = 'https://www.facebook.com/v3.2/dialog/oauth?' . http_build_query($params);
+        $url = 'https://www.facebook.com/v3.2/dialog/oauth?' . http_build_query($params); */ //old api url commented on 29-Jan-2026
+
+
+        $params = [
+            //'access_type' => 'offline',
+            'client_id' => config('services.facebook.client_id'),
+            'redirect_uri' => config('services.facebook.redirect'),
+            'response_type' => 'code',
+            'scope' => 'ads_read ads_management pages_manage_ads pages_read_engagement pages_show_list',
+            'state' => $state
+        ];
+        
+        // Use specific API version
+        $url = 'https://www.facebook.com/v19.0/dialog/oauth?' . http_build_query($params); //old api url commented on 29-Jan-2026
+
         //dd($url);
         return redirect($url);
     }
@@ -46,7 +60,7 @@ class FacebookController extends Controller
     /**
      * Handle Facebook Callback - Jab user "Continue as Athif" ya "Log in to another account" click kare
      */
-    /* public function handleCallback(Request $request)
+    public function handleCallback(Request $request)
     {
         // Log everything for debugging
         Log::info('=== FACEBOOK CALLBACK STARTED ===');
@@ -242,15 +256,15 @@ class FacebookController extends Controller
             
             return redirect('/dashboard')->with('error', 'An error occurred: ' . $e->getMessage());
         }
-    }  */
+    }
 
-     public function handleCallback(Request $request)
+    /* public function handleCallback(Request $request)
     { 
         return response()->json([
             'request_data' => $request->all(),
             'query_string' => $request->getQueryString(),
         ]);
-    }
+    } */
 
 
     /* public function handleCallback(Request $request)
