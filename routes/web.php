@@ -12,7 +12,10 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\TermController;
+<<<<<<< HEAD
 use App\Http\Controllers\DatadeletionController;
+=======
+>>>>>>> 28dc832fd9bae25878562633d8628311676c9759
 
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -96,9 +99,16 @@ Route::middleware('auth')->group(function () {
 
 });
 
+<<<<<<< HEAD
 Route::get('/privacy-policy', [PrivacyController::class, 'show'])->name('privacy.policy');
 Route::get('/terms', [TermController::class, 'show'])->name('terms');
 Route::get('/data-deletion', [DatadeletionController::class, 'show'])->name('data-deletion');
+=======
+
+Route::get('/privacy-policy', [PrivacyController::class, 'show'])->name('privacy.policy');
+
+Route::get('/terms', [TermController::class, 'show'])->name('terms');
+>>>>>>> 28dc832fd9bae25878562633d8628311676c9759
 
 //Testing purpose
 Route::get('/debug-fb-config', function () {
