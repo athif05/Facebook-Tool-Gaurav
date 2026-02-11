@@ -16,35 +16,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts 2>&1 || true
-
       - name: Deploy to Server
-        run: |
-          ssh -o StrictHostKeyChecking=no \
-          -i ~/.ssh/id_rsa \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} \
-          "cd /var/www/html && \
-           echo 'Backing up .env' && \
-           cp .env .env.backup && \
-           \
-           echo 'Pulling latest code' && \
-           git pull origin main && \
-           \
-           echo 'Restoring .env' && \
-           mv .env.backup .env && \
-           \
-           echo 'Clearing Laravel cache' && \
-           php artisan config:clear && \
-           php artisan cache:clear && \
-           php artisan view:clear && \
-           \
-           echo 'Deployment completed successfully!'"
-
-      - name: Cleanup
-        if: always()
-        run: rm -f ~/.ssh/id_rsa
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/html
+            cp .env .env.backup
+            git pull origin main
+            mv .env.backup .env
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan view:clear
+            echo 'Deployment completed!'
