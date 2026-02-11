@@ -16,19 +16,39 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup SSH
+      - name: Setup SSH (with debugging)
         run: |
+          echo "Setting up SSH directory..."
           mkdir -p ~/.ssh
+          
+          echo "Creating SSH key file..."
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts 2>&1
-          chmod 644 ~/.ssh/known_hosts
+          
+          echo "Testing server connectivity..."
+          ping -c 3 ${{ secrets.SERVER_IP }} || echo "Ping failed, continuing..."
+          
+          echo "Running ssh-keyscan..."
+          ssh-keyscan -H -p 22 ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts 2>&1 || echo "ssh-keyscan failed, will use StrictHostKeyChecking=no"
+          
+          if [ -f ~/.ssh/known_hosts ]; then
+            chmod 644 ~/.ssh/known_hosts
+            echo "known_hosts file created successfully"
+          else
+            echo "known_hosts file not created, will skip host verification"
+            touch ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+          fi
+          
+          echo "SSH setup completed"
 
       - name: Deploy to Server
         run: |
-          ssh -i ~/.ssh/id_rsa \
+          ssh -vvv \
+          -i ~/.ssh/id_rsa \
           -o StrictHostKeyChecking=no \
           -o UserKnownHostsFile=~/.ssh/known_hosts \
+          -o ConnectTimeout=10 \
           ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} \
           "cd /var/www/html && \
            
@@ -56,4 +76,4 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: rm -rf ~/.ssh/id_rsa
+        run: rm -f ~/.ssh/id_rsa
