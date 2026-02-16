@@ -5,3 +5,7 @@ Upload from local to server through GitHub action.
 Upload from local to server through GitHub action.
 
 I am using htis fire for test ci/cd
+
+finla testing cicd from local to repo and repo to server.
+
+dsadsd
