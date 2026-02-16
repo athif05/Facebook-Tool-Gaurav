@@ -83,6 +83,20 @@ class SettingsController extends Controller
  */
     public function facebookAccountAdAccounts($id)
     {
+        
+        $query = FacebookAccount::where('id', $id);
+
+    dd([
+        'exists_with_id' => $query->exists(),
+        'exists_with_user' => FacebookAccount::where('id',$id)
+                            ->where('user_id', auth()->id())
+                            ->exists(),
+        'exists_with_status' => FacebookAccount::where('id',$id)
+                            ->where('status','active')
+                            ->exists(),
+        'auth_id' => auth()->id(),
+    ]);
+    
         dd($id);
         // Get the specific Facebook account with its ad accounts
         $facebookAccount = FacebookAccount::where('id', $id)
