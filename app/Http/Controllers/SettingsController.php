@@ -83,6 +83,7 @@ class SettingsController extends Controller
  */
     public function facebookAccountAdAccounts($id)
     {
+        dd($id);
         // Get the specific Facebook account with its ad accounts
         $facebookAccount = FacebookAccount::where('id', $id)
             ->where('user_id', auth()->id())
