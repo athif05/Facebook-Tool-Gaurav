@@ -12,3 +12,6 @@ dsadsd
 
 
 Now my ci cd setup is resolved and file updated fine.
+
+
+file updated after transfer ownership.
