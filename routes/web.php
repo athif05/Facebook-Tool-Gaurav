@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\CampaignController;
-use App\Http\Controllers\AdSetController;
+use App\Http\Controllers\AdsetController;
 use App\Http\Controllers\AdLauncherController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\FacebookController;
