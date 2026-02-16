@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('token_expires_at')->nullable();
             $table->text('refresh_token')->nullable();
             $table->enum('status', ['active', 'inactive', 'expired'])->default('active');
+            $table->softDeletes();
             $table->timestamps();
             
             // Foreign key
