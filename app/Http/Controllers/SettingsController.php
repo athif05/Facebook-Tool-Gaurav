@@ -89,6 +89,8 @@ class SettingsController extends Controller
             ->where('status', 'active')
             ->with(['adAccounts'])
             ->firstOrFail();
+
+        dd($facebookAccount);
         
         // Format ad accounts for table view
         $adAccounts = [];
