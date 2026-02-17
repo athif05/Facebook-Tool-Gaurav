@@ -46,12 +46,16 @@ class FacebookController extends Controller
             'client_id' => config('services.facebook.client_id'),
             'redirect_uri' => config('services.facebook.redirect'),
             'response_type' => 'code',
-            'scope' => 'ads_read ads_management pages_manage_ads pages_read_engagement pages_show_list',
-            'state' => $state
+            'scope' => 'ads_read ads_management pages_read_engagement pages_show_list', //pages_manage_ads
+            'state' => $state,
+            'auth_type' => 'rerequest', // ⭐ YEH ADD KARO - Force permission dialog, added on 17-Feb-2026
+            'display' => 'page' // Optional: Better UI on desktop, added on 17-Feb-2026
         ];
         
         // Use specific API version
         $url = 'https://www.facebook.com/v19.0/dialog/oauth?' . http_build_query($params); //old api url commented on 29-Jan-2026
+
+        Log::info('Facebook OAuth URL: ' . $url); // Debug ke liye, added on 17-Feb-2026
 
         //dd($url);
         return redirect($url);
