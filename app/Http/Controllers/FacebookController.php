@@ -27,26 +27,14 @@ class FacebookController extends Controller
         // Store state in session
         Session::put('facebook_oauth_state', $state);
         session(['facebook_oauth_state' => $state]);
-        
-        /* $params = [
-            'access_type' => 'offline',
-            'client_id' => config('services.facebook.client_id'),
-            'redirect_uri' => config('services.facebook.redirect'),
-            'response_type' => 'code',
-            'scope' => 'ads_read ads_management pages_manage_ads pages_read_engagement pages_show_list',
-            'state' => $state
-        ];
-        
-        // Use specific API version
-        $url = 'https://www.facebook.com/v3.2/dialog/oauth?' . http_build_query($params); */ //old api url commented on 29-Jan-2026
-
-
+    
         $params = [
             //'access_type' => 'offline',
             'client_id' => config('services.facebook.client_id'),
             'redirect_uri' => config('services.facebook.redirect'),
             'response_type' => 'code',
-            'scope' => 'ads_read ads_management pages_read_engagement pages_show_list', //pages_manage_ads
+            //'scope' => 'ads_read ads_management pages_read_engagement pages_show_list', //pages_manage_ads,
+            'scope' => 'ads_read,ads_management,pages_read_engagement,pages_show_list', //added commas on 18-Feb-2026, old scope commented on 29-Jan-2026
             'state' => $state,
             'auth_type' => 'rerequest', // ⭐ YEH ADD KARO - Force permission dialog, added on 17-Feb-2026
             'display' => 'page' // Optional: Better UI on desktop, added on 17-Feb-2026
@@ -57,7 +45,7 @@ class FacebookController extends Controller
 
         Log::info('Facebook OAuth URL: ' . $url); // Debug ke liye, added on 17-Feb-2026
 
-        //dd($url);
+        dd($url);
         return redirect($url);
     }
 
