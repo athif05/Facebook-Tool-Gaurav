@@ -45,7 +45,7 @@ class FacebookController extends Controller
 
         Log::info('Facebook OAuth URL: ' . $url); // Debug ke liye, added on 17-Feb-2026
 
-        dd($url);
+        //dd($url);
         return redirect($url);
     }
 
