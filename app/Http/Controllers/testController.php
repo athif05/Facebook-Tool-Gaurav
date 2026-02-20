@@ -78,6 +78,8 @@ class testController extends Controller
             // Continue if there are more pages
         } while ($page <= $totalPages);
         
-        return $allConversions;
+        echo "<pre>";
+        print_r($allConversions);
+        echo "</pre>";
     }
 }
