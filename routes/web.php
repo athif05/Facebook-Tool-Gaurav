@@ -15,6 +15,8 @@ use App\Http\Controllers\TermController;
 use App\Http\Controllers\DatadeletionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
+//
+use App\Http\Controllers\testController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -166,5 +168,9 @@ Route::get('/test-adset-minimal', function () {
     }
 });
 
+
+//Test api route for eflow
+Route::get('/testphp', [testController::class, 'idex']);
+    
 
 require __DIR__.'/auth.php';
