@@ -13,8 +13,11 @@ class testController extends Controller
         $pageSize = 1; // Fetch 100 records per page
 
         $from = "2026-02-01 00:00:00";
-        $to = "2026-02-20 23:59:59";
+        //$to = "2026-02-20 23:59:59";
+        $to = date("Y-m-d 23:59:59");
         $apiKey = "KbCxXmRZGl0RXjTe9Kw";
+
+        //echo "Fetching on-hold conversions from {$from} to {$to}\n";dd();
 
         do {
             $api_url = "https://api.eflow.team/v1/affiliates/reporting/onhold?page={$page}&page_size={$pageSize}";
