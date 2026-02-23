@@ -10,7 +10,7 @@ class testController extends Controller
 
         $allConversions = [];
         $page = 1;
-        $pageSize = 1; // Fetch 100 records per page
+        $pageSize = 100; // Fetch 100 records per page
 
         $from = "2026-02-01 00:00:00";
         //$to = "2026-02-20 23:59:59";
@@ -21,6 +21,8 @@ class testController extends Controller
 
         do {
             $api_url = "https://api.eflow.team/v1/affiliates/reporting/onhold?page={$page}&page_size={$pageSize}";
+
+            echo $api_url;
             
             $curl = curl_init();
 
